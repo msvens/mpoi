@@ -1,6 +1,7 @@
 name := "mpoi"
 
 version := "0.1-SNAPSHOT"
+organization := "org.mellowtech"
 
 scalaVersion := "2.11.7"
 

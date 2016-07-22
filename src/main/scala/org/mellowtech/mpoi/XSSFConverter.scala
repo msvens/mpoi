@@ -21,6 +21,8 @@ object XSSFConverter {
         if (f.bold.isDefined) pf.setBold(f.bold.get)
         if (f.italic.isDefined) pf.setItalic(f.italic.get)
         if (f.name.isDefined) pf.setFontName(f.name.get)
+        if (f.color.isDefined) pf.setColor(f.color.get)
+        if (f.underline.isDefined) pf.setUnderline(f.underline.get)
         ps.setFont(pf)
       }
       ps
@@ -36,8 +38,10 @@ object XSSFConverter {
     }
     row.cells foreach {c =>
       val pcell = r.createCell(c.idx)
+      val cstyle = Option(sheet.getColumnStyle(c.idx))
       if(c.style.isDefined) pcell.setCellStyle(wb.style(c.style.get))
       else if(row.style.isDefined) pcell.setCellStyle(wb.style(row.style.get))
+      else if(cstyle.isDefined) pcell.setCellStyle(cstyle.get)
       c match {
         case x: BCell => pcell.setCellValue(x.data)
         case x: SCell => pcell.setCellValue(x.data)
